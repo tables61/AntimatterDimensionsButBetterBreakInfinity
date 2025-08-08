@@ -32,6 +32,11 @@ export default {
           BreakInfinityUpgrade.autobuyerSpeed
         ],
         [
+          BreakInfinityUpgrade.infinityPowerRate,
+          BreakInfinityUpgrade.infinityDimensionPurchases,
+          BreakInfinityUpgrade.infinityDimensionCaps
+        ],
+        [
           BreakInfinityUpgrade.tickspeedCostMult,
           BreakInfinityUpgrade.dimCostMult,
           BreakInfinityUpgrade.ipGen
