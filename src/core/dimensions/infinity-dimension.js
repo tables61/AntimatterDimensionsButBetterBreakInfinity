@@ -353,12 +353,9 @@ export const InfinityDimensions = {
    * @type {InfinityDimensionState[]}
    */
   all: InfinityDimension.index.compact(),
+  //return BreakInfinityUpgrade.infinityDimensionCaps.isBought ? 2000000 : 5;
+  HARDCAP_PURCHASES: 2000000,
   
-  HARDCAP_PURCHASES() {
-    //return BreakInfinityUpgrade.infinityDimensionCaps.isBought ? 2000000 : 5;
-    return 2000000;
-  },
-
   unlockNext() {
     if (InfinityDimension(8).isUnlocked) return;
     this.next().unlock();
