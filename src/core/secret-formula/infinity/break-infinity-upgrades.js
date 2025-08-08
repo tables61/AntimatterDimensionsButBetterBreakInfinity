@@ -112,7 +112,7 @@ export const breakInfinityUpgrades = {
   infinityDimensionPurchases: {
     id: "infinityDimensionPurchases",
     cost: 1e9,
-    description: `Increase the purchase multiplier of the first ${formatInt(3)} Infinity Dimensions to ${formatX(50)}, ${formatX(30)}, and ${formatX(10)} respectively.`
+    description: `Increase the purchase multiplier of the first three Infinity Dimensions to ${formatX(50)}, ${formatX(30)}, and ${formatX(10)} respectively.`
   },
   infinityDimensionCaps: {
     id: "infinityDimensionCaps",
