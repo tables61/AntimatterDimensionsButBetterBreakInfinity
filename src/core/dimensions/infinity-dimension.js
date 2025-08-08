@@ -50,19 +50,20 @@ class InfinityDimensionState extends DimensionState {
       DC.E60000,
     ];
     this._unlockRequirement = UNLOCK_REQUIREMENTS[tier];
-    const COST_MULTS_OLD = [null, 10, 1e3, 1e5, 1e10, 1e15, 1e20, 1e25, 1e30];
-    this._costMultiplierOld = new Decimal(COST_MULTS_OLD[tier]);
+    //const COST_MULTS_OLD = [null, 10, 1e3, 1e5, 1e10, 1e15, 1e20, 1e25, 1e30];
+    //this._costMultiplierOld = new Decimal(COST_MULTS_OLD[tier]);
     const COST_MULTS_NEW = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20, 1e25, 1e30];
     this._costMultiplierNew = new Decimal(COST_MULTS_NEW[tier]);
-    const POWER_MULTS_OLD = [null, 5, 5, 5, 5, 5, 5, 5, 5];
-    this._powerMultiplierOld = new Decimal(POWER_MULTS_OLD[tier]);
+    //const POWER_MULTS_OLD = [null, 5, 5, 5, 5, 5, 5, 5, 5];
+    //this._powerMultiplierOld = new Decimal(POWER_MULTS_OLD[tier]);
     const POWER_MULTS_NEW = [null, 50, 30, 10, 5, 5, 5, 5, 5];
     this._powerMultiplierNew = new Decimal(POWER_MULTS_NEW[tier]);
-    const BASE_COSTS_OLD = [null, 1e6, 1e7, 1e8, 1e20, 1e140, 1e200, 1e250, 1e280];
-    this._baseCostOld = new Decimal(BASE_COSTS_OLD[tier]);
+    //const BASE_COSTS_OLD = [null, 1e6, 1e7, 1e8, 1e20, 1e140, 1e200, 1e250, 1e280];
+    //this._baseCostOld = new Decimal(BASE_COSTS_OLD[tier]);
     const BASE_COSTS_NEW = [null, 1e8, 1e9, 1e10, 1e20, 1e140, 1e200, 1e250, 1e280];
     this._baseCostNew = new Decimal(BASE_COSTS_NEW[tier]);
-    this.ipRequirement = BASE_COSTS_OLD[1];
+    //this.ipRequirement = BASE_COSTS_OLD[1];
+    this.ipRequirement = BASE_COSTS_NEW[1];
   }
   
   /** @returns {Decimal} */
@@ -197,36 +198,36 @@ class InfinityDimensionState extends DimensionState {
   }
 
   get baseCost() {
-    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+    //if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
       return this._baseCostNew;
-    }
-    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      return this._baseCostOld;
-    }
+    //}
+    //if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      //return this._baseCostOld;
+    //}
   }
 
   get costMultiplier() {
-    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+    //if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
       let costMult = this._costMultiplierNew;
-    }
-    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      let costMult = this._costMultiplierOld;
-    }
+    //}
+    //if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      //let costMult = this._costMultiplierOld;
+    //}
     EternityChallenge(12).reward.applyEffect(v => costMult = Math.pow(costMult, v));
     return costMult;
   }
 
   get powerMultiplier() {
-    if (BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
+    //if (BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
       return new Decimal(this._powerMultiplierNew)
         .timesEffectsOf(this._tier === 8 ? GlyphSacrifice.infinity : null)
         .pow(ImaginaryUpgrade(14).effectOrDefault(1));
-    }
-    if (!BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
-      return new Decimal(this._powerMultiplierOld)
-        .timesEffectsOf(this._tier === 8 ? GlyphSacrifice.infinity : null)
-        .pow(ImaginaryUpgrade(14).effectOrDefault(1));
-    }
+    //}
+    //if (!BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
+      //return new Decimal(this._powerMultiplierOld)
+        //.timesEffectsOf(this._tier === 8 ? GlyphSacrifice.infinity : null)
+        //.pow(ImaginaryUpgrade(14).effectOrDefault(1));
+    //}
   }
 
   get purchases() {
@@ -248,12 +249,12 @@ class InfinityDimensionState extends DimensionState {
   }
 
   get hardcapIPAmount() {
-    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+    //if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
       return this._baseCostNew.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
-    }
-    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      return this._baseCostOld.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
-    }
+    //}
+    //if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      //return this._baseCostOld.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
+    //}
   }
 
   resetAmount() {
