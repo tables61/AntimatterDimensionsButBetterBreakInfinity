@@ -63,11 +63,18 @@ class InfinityDimensionState extends DimensionState {
     const BASE_COSTS_NEW = [null, 1e8, 1e9, 1e10, 1e20, 1e140, 1e200, 1e250, 1e280];
     this._baseCostNew = new Decimal(BASE_COSTS_NEW[tier]);
     this.ipRequirement = BASE_COSTS_OLD[1];
-    this._costMultiplier = BreakInfinityUpgrade.infinityDimensionCaps.isBought ? this._costMultiplierNew : this._costMultiplierOld;
-    this._powerMultiplier = BreakInfinityUpgrade.infinityDimensionPurchases.isBought ? this._powerMultiplierNew : this._powerMultiplierOld;
-    this._baseCost = BreakInfinityUpgrade.infinityDimensionCaps.isBought ? this._costMultiplierNew : this._costMultiplierOld;
   }
 
+  get _costMultiplier() {
+    return BreakInfinityUpgrade.infinityDimensionCaps.isBought ? this._costMultiplierNew : this._costMultiplierOld;
+  }
+  get _powerMultiplier() {
+    return BreakInfinityUpgrade.infinityDimensionPurchases.isBought ? this._powerMultiplierNew : this._powerMultiplierOld;
+  }
+  get _baseCost() {
+    return BreakInfinityUpgrade.infinityDimensionCaps.isBought ? this._costMultiplierNew : this._costMultiplierOld;
+  }
+  
   /** @returns {Decimal} */
   get cost() { return this.data.cost; }
   /** @param {Decimal} value */
