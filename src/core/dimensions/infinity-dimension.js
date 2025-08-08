@@ -63,9 +63,9 @@ class InfinityDimensionState extends DimensionState {
     const BASE_COSTS_NEW = [null, 1e8, 1e9, 1e10, 1e20, 1e140, 1e200, 1e250, 1e280];
     this._baseCostNew = new Decimal(BASE_COSTS_NEW[tier]);
     this.ipRequirement = BASE_COSTS_OLD[1];
-    this._costMultiplier = BreakInfinityUpgrade.infinityDimensionCaps ? this._costMultiplierNew : this._costMultiplierOld;
-    this._powerMultiplier = BreakInfinityUpgrade.infinityDimensionPurchases ? this._powerMultiplierNew : this._powerMultiplierOld;
-    this._baseCost = BreakInfinityUpgrade.infinityDimensionCaps ? this._costMultiplierNew : this._costMultiplierOld;
+    this._costMultiplier = BreakInfinityUpgrade.infinityDimensionCaps.isBought ? this._costMultiplierNew : this._costMultiplierOld;
+    this._powerMultiplier = BreakInfinityUpgrade.infinityDimensionPurchases.isBought ? this._powerMultiplierNew : this._powerMultiplierOld;
+    this._baseCost = BreakInfinityUpgrade.infinityDimensionCaps.isBought ? this._costMultiplierNew : this._costMultiplierOld;
   }
 
   /** @returns {Decimal} */
@@ -334,7 +334,7 @@ export const InfinityDimensions = {
    * @type {InfinityDimensionState[]}
    */
   all: InfinityDimension.index.compact(),
-  HARDCAP_PURCHASES: 2000000,
+  HARDCAP_PURCHASES: BreakInfinityUpgrade.infinityDimensionCaps.isBought ? 2000000 : 5,
 
   unlockNext() {
     if (InfinityDimension(8).isUnlocked) return;
@@ -419,6 +419,7 @@ export const InfinityDimensions = {
 
   get powerConversionRate() {
     const multiplier = PelleRifts.paradox.milestones[2].effectOrDefault(1);
-    return (7 + getAdjustedGlyphEffect("infinityrate") + PelleUpgrade.infConversion.effectOrDefault(0)) * multiplier;
+    const basemult = BreakInfinityUpgrade.infinityPowerRate.isBought ? BreakInfinityUpgrade.infinityPowerRate : 1;
+    return (basemult + getAdjustedGlyphEffect("infinityrate") + PelleUpgrade.infConversion.effectOrDefault(0)) * multiplier;
   }
 };
