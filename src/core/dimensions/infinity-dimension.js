@@ -40,9 +40,9 @@ class InfinityDimensionState extends DimensionState {
     super(() => player.dimensions.infinity, tier);
     const UNLOCK_REQUIREMENTS = [
       undefined,
-      DC.E1100,
-      DC.E1900,
-      DC.E2400,
+      DC.E800,
+      DC.E1500,
+      DC.E2800,
       DC.E10500,
       DC.E30000,
       DC.E45000,
@@ -50,13 +50,22 @@ class InfinityDimensionState extends DimensionState {
       DC.E60000,
     ];
     this._unlockRequirement = UNLOCK_REQUIREMENTS[tier];
-    const COST_MULTS = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20, 1e25, 1e30];
-    this._costMultiplier = COST_MULTS[tier];
-    const POWER_MULTS = [null, 50, 30, 10, 5, 5, 5, 5, 5];
-    this._powerMultiplier = POWER_MULTS[tier];
-    const BASE_COSTS = [null, 1e8, 1e9, 1e10, 1e20, 1e140, 1e200, 1e250, 1e280];
-    this._baseCost = new Decimal(BASE_COSTS[tier]);
-    this.ipRequirement = BASE_COSTS[1];
+    const COST_MULTS_OLD = [null, 10, 1e3, 1e5, 1e10, 1e15, 1e20, 1e25, 1e30];
+    this._costMultiplierOld = COST_MULTS_OLD[tier];
+    const COST_MULTS_NEW = [null, 1e3, 1e6, 1e8, 1e10, 1e15, 1e20, 1e25, 1e30];
+    this._costMultiplierNew = COST_MULTS_NEW[tier];
+    const POWER_MULTS_OLD = [null, 5, 5, 5, 5, 5, 5, 5, 5];
+    this._powerMultiplierOld = POWER_MULTS_OLD[tier];
+    const POWER_MULTS_NEW = [null, 50, 30, 10, 5, 5, 5, 5, 5];
+    this._powerMultiplierNew = POWER_MULTS_NEW[tier];
+    const BASE_COSTS_OLD = [null, 1e6, 1e7, 1e8, 1e20, 1e140, 1e200, 1e250, 1e280];
+    this._baseCostOld = new Decimal(BASE_COSTS_OLD[tier]);
+    const BASE_COSTS_NEW = [null, 1e8, 1e9, 1e10, 1e20, 1e140, 1e200, 1e250, 1e280];
+    this._baseCostNew = new Decimal(BASE_COSTS_NEW[tier]);
+    this.ipRequirement = BASE_COSTS_OLD[1];
+    this._costMultiplier = BreakInfinityUpgrade.infinityDimensionCaps ? this._costMultiplierNew : this._costMultiplierOld;
+    this._powerMultiplier = BreakInfinityUpgrade.infinityDimensionPurchases ? this._powerMultiplierNew : this._powerMultiplierOld;
+    this._baseCost = BreakInfinityUpgrade.infinityDimensionCaps ? this._costMultiplierNew : this._costMultiplierOld;
   }
 
   /** @returns {Decimal} */
