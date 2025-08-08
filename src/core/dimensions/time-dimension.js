@@ -124,7 +124,7 @@ export function timeDimensionCommonMultiplier() {
   if (EternityChallenge(9).isRunning) {
     mult = mult.times(
       Decimal.pow(
-        Math.clampMin(Currency.infinityPower.value.pow(InfinityDimensions.powerConversionRate / 7).log2(), 1),
+        Math.clampMin(Currency.infinityPower.value.pow(Math.max(InfinityDimensions.powerConversionRate, 7) / 7).log2(), 1),
         4)
         .clampMin(1));
   }
