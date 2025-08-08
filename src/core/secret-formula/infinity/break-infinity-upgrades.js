@@ -100,6 +100,25 @@ export const breakInfinityUpgrades = {
     cost: 1e15,
     description: "Autobuyers unlocked or improved by Normal Challenges work twice as fast"
   },
+  infinityPowerRate: {
+    id: "infinityPowerRate",
+    cost: 1e7,
+    description: "Improve Infinity Power Conversion Rate based on record Antimatter",
+    effect: () => Decimal.clampMin((player.records.totalAntimatter.exponent + 1) / 400, 1),
+    formatEffect: value => `^1.00 ➜ ^${formatX(value, 2, 2)}`,
+    hasCap: true,
+    cap: DC.D7
+  },
+  infinityDimensionPurchases: {
+    id: "infinityDimensionPurchases",
+    cost: 1e9,
+    description: `Increase the purchase multiplier of the first ${formatInt(3)} Infinity Dimensions to ${formatX(50)}, ${formatX(30)}, and ${formatX(10)} respectively.`
+  },
+  infinityDimensionCaps: {
+    id: "infinityDimensionCaps",
+    cost: 1e25,
+    description: "Increase the Infinity Dimension purchase cap",
+  },
   tickspeedCostMult: rebuyable({
     id: 0,
     initialCost: 1e6,
