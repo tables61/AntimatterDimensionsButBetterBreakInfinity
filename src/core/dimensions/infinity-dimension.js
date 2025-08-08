@@ -63,20 +63,6 @@ class InfinityDimensionState extends DimensionState {
     const BASE_COSTS_NEW = [null, 1e8, 1e9, 1e10, 1e20, 1e140, 1e200, 1e250, 1e280];
     this._baseCostNew = new Decimal(BASE_COSTS_NEW[tier]);
     this.ipRequirement = BASE_COSTS_OLD[1];
-    if (BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
-      this._powerMultiplier = this._powerMultiplierNew;
-    }
-    if (!BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
-      this._powerMultiplier = this._powerMultiplierOld;
-    }
-    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      this._baseCost = this._baseCostNew;
-      this._costMultiplier = this._costMultiplierNew;
-    }
-    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      this._baseCost = this._baseCostOld;
-      this._costMultiplier = this._costMultiplierOld;
-    }
   }
   
   /** @returns {Decimal} */
@@ -211,19 +197,36 @@ class InfinityDimensionState extends DimensionState {
   }
 
   get baseCost() {
-    return this._baseCost;
+    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      return this._baseCostNew;
+    }
+    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      return this._baseCostOld;
+    }
   }
 
   get costMultiplier() {
-    let costMult = this._costMultiplier;
+    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      let costMult = this._costMultiplierNew;
+    }
+    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      let costMult = this._costMultiplierOld;
+    }
     EternityChallenge(12).reward.applyEffect(v => costMult = Math.pow(costMult, v));
     return costMult;
   }
 
   get powerMultiplier() {
-    return new Decimal(this._powerMultiplier)
-      .timesEffectsOf(this._tier === 8 ? GlyphSacrifice.infinity : null)
-      .pow(ImaginaryUpgrade(14).effectOrDefault(1));
+    if (BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
+      return new Decimal(this._powerMultiplierNew)
+        .timesEffectsOf(this._tier === 8 ? GlyphSacrifice.infinity : null)
+        .pow(ImaginaryUpgrade(14).effectOrDefault(1));
+    }
+    if (!BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
+      return new Decimal(this._powerMultiplierOld)
+        .timesEffectsOf(this._tier === 8 ? GlyphSacrifice.infinity : null)
+        .pow(ImaginaryUpgrade(14).effectOrDefault(1));
+    }
   }
 
   get purchases() {
@@ -245,7 +248,12 @@ class InfinityDimensionState extends DimensionState {
   }
 
   get hardcapIPAmount() {
-    return this._baseCost.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
+    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      return this._baseCostNew.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
+    }
+    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      return this._baseCostOld.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
+    }
   }
 
   resetAmount() {
