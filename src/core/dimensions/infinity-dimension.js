@@ -63,16 +63,20 @@ class InfinityDimensionState extends DimensionState {
     const BASE_COSTS_NEW = [null, 1e8, 1e9, 1e10, 1e20, 1e140, 1e200, 1e250, 1e280];
     this._baseCostNew = new Decimal(BASE_COSTS_NEW[tier]);
     this.ipRequirement = BASE_COSTS_OLD[1];
-  }
-
-  get _costMultiplier() {
-    return BreakInfinityUpgrade.infinityDimensionCaps.isBought ? this._costMultiplierNew : this._costMultiplierOld;
-  }
-  get _powerMultiplier() {
-    return BreakInfinityUpgrade.infinityDimensionPurchases.isBought ? this._powerMultiplierNew : this._powerMultiplierOld;
-  }
-  get _baseCost() {
-    return BreakInfinityUpgrade.infinityDimensionCaps.isBought ? this._costMultiplierNew : this._costMultiplierOld;
+    if (BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
+      this._powerMultiplier = this._powerMultiplierNew;
+    }
+    if (!BreakInfinityUpgrade.infinityDimensionPurchases.isBought) {
+      this._powerMultiplier = this._powerMultiplierOld;
+    }
+    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      this._baseCost = this._baseCostNew;
+      this._costMultiplier = this._costMultiplierNew;
+    }
+    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
+      this._baseCost = this._baseCostOld;
+      this._costMultiplier = this._costMultiplierOld;
+    }
   }
   
   /** @returns {Decimal} */
