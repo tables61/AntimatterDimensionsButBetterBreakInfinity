@@ -105,7 +105,7 @@ export const breakInfinityUpgrades = {
     cost: 1e7,
     description: "Improve Infinity Power Conversion Rate based on record Antimatter",
     effect: () => Math.clampMin((player.records.totalAntimatter.exponent + 1) / 400, 1),
-    formatEffect: value => `^1.00 ➜ ^${format(value, 2, 1)}`,
+    formatEffect: value => `^1.000 ➜ ^${format(value, 2, 3)}`,
     hasCap: true,
     cap: 7
   },
