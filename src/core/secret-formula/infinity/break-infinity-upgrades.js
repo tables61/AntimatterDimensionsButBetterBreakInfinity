@@ -104,10 +104,10 @@ export const breakInfinityUpgrades = {
     id: "infinityPowerRate",
     cost: 1e7,
     description: "Improve Infinity Power Conversion Rate based on record Antimatter",
-    effect: () => Decimal.clampMin((player.records.totalAntimatter.exponent + 1) / 400, 1),
+    effect: () => Math.clampMin((player.records.totalAntimatter.exponent + 1) / 400, 1),
     formatEffect: value => `^1.00 ➜ ^${format(value, 2, 1)}`,
     hasCap: true,
-    cap: DC.D7
+    cap: 7
   },
   infinityDimensionPurchases: {
     id: "infinityDimensionPurchases",
