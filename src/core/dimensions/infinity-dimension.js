@@ -250,12 +250,7 @@ class InfinityDimensionState extends DimensionState {
   }
 
   get hardcapIPAmount() {
-    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      return this._baseCostNew.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
-    }
-    if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      return this._baseCostOld.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
-    }
+    return this.baseCost.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
   }
 
   resetAmount() {
