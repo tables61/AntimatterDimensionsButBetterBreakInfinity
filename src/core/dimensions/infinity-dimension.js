@@ -439,7 +439,7 @@ export const InfinityDimensions = {
 
   get powerConversionRate() {
     const multiplier = PelleRifts.paradox.milestones[2].effectOrDefault(1);
-    const basemult = BreakInfinityUpgrade.infinityPowerRate.isBought ? BreakInfinityUpgrade.infinityPowerRate : 1;
+    const basemult = BreakInfinityUpgrade.infinityPowerRate.isBought ? BreakInfinityUpgrade.infinityPowerRate.effectOrDefault(1) : 1;
     return (basemult + getAdjustedGlyphEffect("infinityrate") + PelleUpgrade.infConversion.effectOrDefault(0)) * multiplier;
   }
 };
