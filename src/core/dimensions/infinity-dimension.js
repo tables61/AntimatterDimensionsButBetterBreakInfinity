@@ -208,12 +208,14 @@ class InfinityDimensionState extends DimensionState {
   get costMultiplier() {
     if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
       let costMult = this._costMultiplierNew;
+      EternityChallenge(12).reward.applyEffect(v => costMult = Math.pow(costMult, v));
+      return costMult;
     }
     if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
       let costMult = this._costMultiplierOld;
+      EternityChallenge(12).reward.applyEffect(v => costMult = Math.pow(costMult, v));
+      return costMult;
     }
-    EternityChallenge(12).reward.applyEffect(v => costMult = Math.pow(costMult, v));
-    return costMult;
   }
 
   get powerMultiplier() {
