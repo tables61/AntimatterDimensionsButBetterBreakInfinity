@@ -51,7 +51,7 @@ export default {
     btnClassObject(column) {
       return {
         "l-infinity-upgrade-grid__cell": true,
-        "o-infinity-upgrade-btn--multiplier": column === 3
+        "o-infinity-upgrade-btn--multiplier": column === 4
       };
     },
     timeDisplayShort(time) {
