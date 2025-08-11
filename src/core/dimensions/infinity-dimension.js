@@ -198,10 +198,12 @@ class InfinityDimensionState extends DimensionState {
 
   get baseCost() {
     if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      return this._baseCostNew;
+      let baseCosts = this._baseCostNew;
+      return baseCosts;
     }
     if (!BreakInfinityUpgrade.infinityDimensionCaps.isBought) {
-      return this._baseCostOld;
+      let baseCosts = this._baseCostOld;
+      return baseCosts;
     }
   }
 
@@ -350,8 +352,11 @@ export const InfinityDimensions = {
    * @type {InfinityDimensionState[]}
    */
   all: InfinityDimension.index.compact(),
-  //return BreakInfinityUpgrade.infinityDimensionCaps.isBought ? 2000000 : 5;
-  HARDCAP_PURCHASES: 2000000,
+  
+  HARDCAP_PURCHASES() {
+    if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) return 2000000;
+    return 5;
+  },
   
   unlockNext() {
     if (InfinityDimension(8).isUnlocked) return;
