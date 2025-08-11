@@ -353,7 +353,7 @@ export const InfinityDimensions = {
    */
   all: InfinityDimension.index.compact(),
   
-  HARDCAP_PURCHASES() {
+  get HARDCAP_PURCHASES() {
     if (BreakInfinityUpgrade.infinityDimensionCaps.isBought) return 2000000;
     return 5;
   },
