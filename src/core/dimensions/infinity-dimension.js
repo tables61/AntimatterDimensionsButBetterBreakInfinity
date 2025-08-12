@@ -41,7 +41,7 @@ class InfinityDimensionState extends DimensionState {
     const UNLOCK_REQUIREMENTS = [
       undefined,
       DC.E900,
-      DC.E1500,
+      DC.E1400,
       DC.E2800,
       DC.E10500,
       DC.E30000,
