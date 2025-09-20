@@ -42,7 +42,7 @@ class InfinityDimensionState extends DimensionState {
       undefined,
       DC.E900,
       DC.E1300,
-      DC.E2800,
+      DC.E1750,
       DC.E10500,
       DC.E30000,
       DC.E45000,
